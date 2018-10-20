@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+	 <head>
+		  <title>SitnShop</title>
+		 {% load static %}
+		  <meta name="viewport" content="width=device-width, initial-scale=1">
+		  <script src="scriptes.js"></script>
+		  <link rel="stylesheet" href="{% static 'styles.css' %}" type="text/css" >
+		  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		  <link href="https://fonts.googleapis.com/css?family=Aclonica" rel='stylesheet'>
+	 </head>
+
+	 <body>
+
+		  <div class="navbar">
+  			 <a href="index.html" style="float: left;font-family: 'Aclonica';"><i class="fa fa-fw fa-home"></i><h3> SitnShop</h3></a>
+  			 <a href="#"><i class="fa fa-fw fa-envelope"></i><h3> Contact</h3></a>
+  			 <a href="#"><i class="fa fa-fw fa-user"></i><h3> Login</h3></a>
+  			 <div class="search-container">
+    			   <form >
+    				    <button type="submit"><i class="fa fa-search"></i></button>
+      				  <input type="text" placeholder="Search" name="search">
+      			 </form>
+  		   </div>
+       </div>
+
+
+      <div class="login">
+        <h2>Login</h2>
+        <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+        <form  method="post">
+			{% csrf_token %}
+          <input type="text" placeholder="User name" name="username"><br>
+          <input type="password" placeholder="Password" name="password"><br>
+		  <input type="password" placeholder="Retype Password" name="r_password"><br>
+
+			{% if error != None %}
+			<p class=" label label-danger">
+				Your username and password didn't match.
+				Please try again.
+			</p>
+			{% endif %}
+          <input type="submit" value="Singup">
+        </form>
+
+  		</div>
+
+
+
+
+
+
+	</body>
+</html>

@@ -23,6 +23,7 @@ urlpatterns = [
         path('', views.HomePage, name= 'homepage'),
         path('login/', views.LoginIN, name = "login"),
         path('signup/', views.SignUP, name = "signup"),
+        path('signup_user/', views.SignUP_User, name = "signup_user"),
         path('profile/', views.Profile, name = "profile"),
         path("logout/", views.LogOUT, name = "logout"),
         path("public/<pk>/", views.public_profile, name = "public_profile"),

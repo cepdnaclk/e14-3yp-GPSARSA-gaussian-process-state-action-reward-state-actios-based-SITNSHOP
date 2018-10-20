@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'el_pagination',
     'client.apps.ClientConfig',
 
+
 ]
 
 MIDDLEWARE = [

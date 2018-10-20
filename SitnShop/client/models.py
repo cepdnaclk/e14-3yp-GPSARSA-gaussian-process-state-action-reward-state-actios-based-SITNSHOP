@@ -20,3 +20,14 @@ class Client(models.Model):
 
     def __str__(self):
         return str(self.user.username)
+
+class Viewer(models.Model):
+
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        return str(self.user.username)

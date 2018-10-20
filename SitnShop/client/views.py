@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 import datetime
 from django.contrib.auth import logout
-from .models import Client
+from .models import Client, Viewer
 import os
 
 from el_pagination.decorators import page_template
@@ -18,17 +18,43 @@ from el_pagination.views import AjaxListView
 def HomePage(request, extra_context = None):
     template_name = "pages/index.html"
     page_template = "pages/index_page.html"
-    user = request.user
-    c = Client.objects.filter(pk = 9)
-    entries = [c[0] for i in range(1000)]
+
+    if request.method == "GET":
+        user = request.user
+        c = Client.objects.filter(pk = 2)
+        print(c[0].pk)
+        entries = [c[0] for i in range(1000)]
 
 
-    context = {"entries": entries, "page_template": page_template, "user" : user}
-    if extra_context is not None:
-        context.update(extra_context)
+        context = {"entries": entries, "page_template": page_template, "user" : user}
+        if extra_context is not None:
+            context.update(extra_context)
 
 
-    return render(request, template_name, context)
+        return render(request, template_name, context)
+
+    elif request.method == "POST":
+        user = request.user
+        s = request.POST["search"]
+
+       
+        u = User.objects.filter(username = s)
+
+
+
+
+        if len(u) == 0:
+            return redirect("/home/")
+        else:
+            c = Client.objects.filter(user = u[0])
+            if len(c) == 0:
+                return redirect("/home/")
+            else:
+                if user == c[0].user:
+                    return redirect("/home/profile/")
+                else:
+                    url  = "/home/public/" + str(c[0].pk) + "/"
+                    return redirect(url)
 
 
 
@@ -53,6 +79,12 @@ def SignUP(request):
             c = Client()
             c.user = user
             c.timestamp = datetime.datetime.now()
+            path = os.getcwd()
+            new_path = path + "\client\static\Images\i" + str(c.pk)
+            if os.path.isdir(new_path):
+                pass
+            else:
+                os.mkdir(new_path)
 
             c.save()
 
@@ -66,6 +98,39 @@ def SignUP(request):
             context = {'error' : "Please type the correct authentication details"}
 
             return render(request, template_name, context)
+
+def SignUP_User(request):
+
+    if request.method == "GET":
+
+        template_name = "pages/signup_page_user.html"
+        context = {}
+
+        return render(request, template_name, context)
+
+    elif request.method == "POST":
+
+
+        username = request.POST["username"]
+        password = request.POST["password"]
+        r_password = request.POST["r_password"]
+
+        if(password == r_password):
+            user = User.objects.create_user(username=username, password= password)
+
+            v = Viewer()
+            v.user = user
+            v.timestamp = datetime.datetime.now()
+            v.save()
+
+            return redirect("/home/login/")
+
+        else:
+
+            template_name = "pages/signup_page_user.html"
+            context = {'error' : "Please type the correct authentication details"}
+
+
 
 
 def LoginIN(request):
@@ -82,12 +147,6 @@ def LoginIN(request):
         if user is not None:
             login(request, user)
 
-            path = os.getcwd()
-            new_path = path + "\client\static\Images\i" + str(user.pk)
-            if os.path.isdir(new_path):
-                pass
-            else:
-                os.mkdir(new_path)
 
 
             return redirect("/home/profile/")
@@ -109,15 +168,16 @@ def Profile(request):
 
 
     user = request.user
-
-    if user.is_anonymous:
+    c = Client.objects.filter(user = user)
+    if user.is_anonymous or len(c) == 0:
 
         return redirect("/home/")
+
     else:
 
         ad_list = [["1","a"],  ["2", "b"], ["3", "c"]]
         template_name = "pages/profile.html"
-        pk = str(user.pk)
+        pk = str(c[0].pk)
         context = {"user" : user, "ad_list": ad_list, "pk": pk}
         return render(request, template_name, context)
 
