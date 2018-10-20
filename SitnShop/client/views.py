@@ -11,7 +11,6 @@ import os
 from el_pagination.decorators import page_template
 from el_pagination.views import AjaxListView
 
-
 @page_template('pages/index_page.html')
 
 
@@ -19,15 +18,18 @@ from el_pagination.views import AjaxListView
 def HomePage(request, extra_context = None):
     template_name = "pages/index.html"
     page_template = "pages/index_page.html"
+    user = request.user
+    c = Client.objects.filter(pk = 9)
+    entries = [c[0] for i in range(1000)]
 
-    entries = Client.objects.all()
-    entries = [i for i in range(10000)]
-    context = {"entries": entries, "page_template": page_template}
+
+    context = {"entries": entries, "page_template": page_template, "user" : user}
     if extra_context is not None:
         context.update(extra_context)
 
 
     return render(request, template_name, context)
+
 
 
 def SignUP(request):
@@ -118,6 +120,25 @@ def Profile(request):
         pk = str(user.pk)
         context = {"user" : user, "ad_list": ad_list, "pk": pk}
         return render(request, template_name, context)
+
+
+def public_profile(request, pk):
+
+    u = Client.objects.filter(pk = pk)
+
+
+    if len(u) == 0:
+        return redirect("/home/")
+
+    else:
+        c = u[0]
+        ad_list = [["1","a"],  ["2", "b"], ["3", "c"]]
+        template_name = "pages/profile_public.html"
+        pk = str(c.pk)
+        context = {"user" : c, "ad_list": ad_list, "pk": pk}
+        return render(request, template_name, context)
+
+
 
 def LogOUT(request):
 

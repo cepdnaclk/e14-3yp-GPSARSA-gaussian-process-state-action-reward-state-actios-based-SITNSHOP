@@ -33,10 +33,28 @@
 
 
   		{% for entry in entries %}
-  		<div class="content">
 
-  			<img class="avatar" src="Images/s1.jpg" alt="dp">
-  			<h1>&nbsp&nbsp {{ entry }} </h1>
+  		<div class="content">
+			{% with entry.pk|stringformat:"i" as pk %}
+
+
+				{% with "Images/i"|add:pk|add:"/"|add:"Profile"|add:".jpg" as image_static_1 %}
+				<img class="avatar" src="{% static image_static_1 %}" alt="dp">
+
+				{% endwith %}
+
+
+			{{ user }}
+			{{entry }}
+			{% if user.pk == entry.pk %}
+				<a href="/home/profile/"><h1>&nbsp&nbsp {{ entry }} </h1></a>
+			{% else %}
+				{% with "/home"|add:"/"|add:"public/"|add:pk as url %}
+				<a href= {{ url }}><h1>&nbsp&nbsp {{ entry }} </h1></a>
+			{% endwith %}
+			{% endif %}
+
+			{%endwith %}
   			<hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
   			<img class="post" src="{% static 'Images/s1a1.jpg' %}" alt="dp">
   		</div>
