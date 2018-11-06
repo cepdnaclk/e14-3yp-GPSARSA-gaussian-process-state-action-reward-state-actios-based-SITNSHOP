@@ -1,0 +1,52 @@
+{% extends 'market/base.html' %}
+
+
+
+{% block javascript %}
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+ 	<script src="/static/js/shop_profile.js"></script>
+{% endblock %}
+
+
+{% block body %}
+
+		<div class="cover" style="margin-top: 100px;">
+			<h1 class="profile" style="">{{ shop.shop.ShopName }}</h1>
+			<i class="fas fa-circle" style="font-size: 10px;color: rgb(0,200,0);"></i> <!-- green( rgb(0,200,0) ) , red( 224,0,0 ) -->
+
+
+			<a href="#" shop_id="{{ shop.shop.user.id }}" action="follow" class="followProfile">
+				<i class="fas fa-heart" style="font-size: 12px;"></i><h5 id="follow_text">&nbspFollow</h5>
+			</a>
+
+
+
+			<br>
+			<h4 class="followers">{{ shop.n_followers }} followers</h4>
+			<div class="CoverContainer">
+			  <img src="{{ shop.shop.ProfilePic.url }}" alt="Avatar" class="CoverImage">
+			</div>
+			<div class="dpContainer">
+			  <img src="{{ shop.shop.ProfilePic.url }}" alt="Avatar" class="dpImage">
+			</div>
+		  </div>
+
+  		{% for add in shop.adds %}
+  		<div class="content" style="margin-top: 80px;">
+
+  			<img class="avatar" src="{{ add.shop.ProfilePic.url }}" alt="dp">
+			<a href="{% url 'market:public_profile' add.shop.id %}"><h1>{{ add.shop.ShopName }}</h1></a><br>
+			<p class=" label label-danger">
+				{{add.Advertisement_text}}
+			</p>
+			<h4><i class="fas fa-map-marker-alt"></i>&nbsp{{ add.shop.Address }}. </h4>
+  			<hr style="background-color: rgb(220,220,220);border: 0;" size="3">
+  			<img class="post" src="{{ add.Advertisement_data.url }}" alt="dp">
+  		</div>
+
+		{% endfor %}
+
+
+
+
+{% endblock %}

@@ -1,0 +1,39 @@
+todo:
+
+change hardcoded html files, use template.html and forms 
+
+
+RuntimeWarning: DateTimeField Customer.timestamp received a naive datetime (2018-10-27 14:47:22.944052) while time zone support is active.
+
+
+get the nav bar right
+add base.html
+get css right
+dynamic url, namespace
+
+change path to static/client/Images
+
+change app name (client) 
+try to distribute apps 
+
+get static image loading to dynamic correctly
+
+login / logout
+
+
+user types - admin, shopowner, shopvisitor
+
+admin can delete shopowner/shopvisitor accounts
+shopowner can edit his shopowner account
+shopvisitor can visit,follow shopowners' accounts 
+
+to create a shopowner account you need a (username,password) pair given to you by the admin. for this you should certify that you are shopowner (directly, email..)
+
+to create a shopvisitor account you should sign up using google or facebook.
+
+since shopowner is a certified user he is given the shopvisitor account's privileges eventhough he has not signed up using google or facebook
+
+
+other than that any random visitor to the website can visit shopowners' accounts but cannot follow them. 
+
+when a shopvisitor follows shopowner accounts the updates of respective shops will be in shopvisitor's wall.

@@ -1,0 +1,22 @@
+{% extends 'market/base.html' %}
+{% block body %}
+	<div class="login">
+		<h2>Who Are You?</h2> 
+        <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+        <div>
+            <a class="btn btn-student btn-lg">Shop</a>
+            <a class="btn btn-student btn-lg">Customer</a>
+        </div>
+        <div>
+		  	<a href="{% url 'market:loginShop' %}" class="btn btn-student btn-lg" role="button">Log In Shop</a>
+            <a href="{% url 'market:loginCustomer' %}" class="btn btn-teacher btn-lg" role="button">Log In Customer</a>
+        </div>
+        <div>
+            <a href="{% url 'market:signupShop' %}" class="btn btn-student btn-lg" role="button">Sign Up Shop</a>
+            <a href="{% url 'market:signupCustomer' %}" class="btn btn-teacher btn-lg" role="button">Sign Up Customer</a>
+        </div>
+
+
+	</div>
+	
+{% endblock %}

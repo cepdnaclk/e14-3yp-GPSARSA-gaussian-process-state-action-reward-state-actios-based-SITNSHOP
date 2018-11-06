@@ -1,0 +1,73 @@
+{% extends 'market/base.html' %}
+{% block body %}
+    <div >
+        <h3>{{ user.username }}'s Advertisements</h3>
+    </div>
+    {% if adds %}
+        {% for add in adds %}
+            <div class="content" style="margin-top: 80px;">
+
+                <img class="avatar" src="{{ add.shop.ProfilePic.url }}" alt="dp">
+                <a href="#"><h1>{{ add.shop.ShopName }}</h1></a><br>
+                <p class=" label label-danger">
+                    {{add.Advertisement_text}}
+                </p>
+                <h4><i class="fas fa-map-marker-alt"></i>&nbsp{{ add.shop.Address }}. </h4>
+                <a href="#" class="follow" style="float: right;color: rgb(72,72,72);font-size: 14px;"><i class="fas fa-heart" style="font-size: 12px;"></i><h5>&nbspFollow</h5></a>
+                <hr style="background-color: rgb(220,220,220);border: 0;" size="3">
+                <img class="post" src="{{ add.Advertisement_data.url }}" alt="dp">
+                <!--Delete Advertisement-->
+                    <form action="{% url 'market:delete_advertisement' add.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="advertisement_id" value="{{ add.id }}" />
+                        <button type="submit" class="fas fa-trash">
+                        </button>
+                    </form>
+                <!--Edit Advertisement-->
+                    <form action="{% url 'market:update_advertisement' add.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        {% for field in updateForm %}
+                            <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+                                <div>
+                                    <span class="text-danger small">{{ field.errors }}</span>
+                                </div>
+                                    <!--<input type="{{ field.widget.type }}" placeholder="{{ field.label_tag }}" name="username"><br>-->
+                                <label >{{ field.label_tag }}</label>
+                                <div >{{ field }}</div>
+
+                        {% endfor %}
+                        <!--<input type="hidden" name="advertisement_id" value="{{ add.id }}" />-->
+                        <button type="submit" class="fas fa-edit">
+                        </button>
+                    </form>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% if withinAddLimit %}
+         <div class="content" style="margin-top: 80px;">
+                <h2>Create Advertisement</h2>
+                <form  action="{% url 'market:create_advertisement' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {% for field in form %}
+                            <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+                                <div>
+                                    <span class="text-danger small">{{ field.errors }}</span>
+                                </div>
+                                    <!--<input type="{{ field.widget.type }}" placeholder="{{ field.label_tag }}" name="username"><br>-->
+                                <label >{{ field.label_tag }}</label>
+                                <div >{{ field }}</div>
+
+                        {% endfor %}
+                    {% if error_message != None %}
+                    <p class=" label label-danger">
+                        {{error_message}}
+                    </p>
+                    {% endif %}
+                  <input type="submit" value="Create Advertisement">
+                    <hr style="background-color: rgb(220,220,220);border: ;" size="3">
+                </form>
+
+         </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'market/base.html' %}
+{% block body %}
+
+
+		<!--{% load el_pagination_tags %}-->
+		<!--{% with entry_list as e %}-->
+			<!--{% lazy_paginate e %}-->
+
+
+  		{% for add in adds %}
+  		<div class="content" style="margin-top: 80px;">
+
+  			<img class="avatar" src="{{ add.shop.ProfilePic.url }}" alt="dp">
+			<a href="{% url 'market:public_profile' add.shop.id %}"><h1>{{ add.shop.ShopName }}</h1></a><br>
+			<p class=" label label-danger">
+				{{add.Advertisement_text}}
+			</p>
+			<h4><i class="fas fa-map-marker-alt"></i>&nbsp{{ add.shop.Address }}. </h4>
+  			<hr style="background-color: rgb(220,220,220);border: 0;" size="3">
+  			<img class="post" src="{{ add.Advertisement_data.url }}" alt="dp">
+  		</div>
+
+		{% endfor %}
+		<!--{% show_more %}-->
+
+		<!--{%endwith %}-->
+
+{% endblock %}
+	<!--</body>-->
+<!--</html>-->

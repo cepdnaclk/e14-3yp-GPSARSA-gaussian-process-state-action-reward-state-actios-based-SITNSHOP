@@ -1,0 +1,21 @@
+{% extends 'market/base.html' %}
+{% block body %}
+  		{% include page_template %}
+		{% block js %}
+			<script src="http://code.jquery.com/jquery-latest.js"></script>
+			<script src="{{ STATIC_URL }}endless_pagination/js/endless-pagination.js"></script>
+			<script>
+					<!--$(document).ready(function() {-->
+						<!--$.endlessPaginate({-->
+							<!--paginateOnScroll: true,-->
+							<!--paginateOnScrollMargin: 20-->
+						<!--});-->
+					<!--});-->
+					$.endlessPaginate({
+						paginateOnScroll: true,
+						paginateOnScrollMargin: 20
+					});
+    		</script>
+    	{% endblock %}
+
+{% endblock %}

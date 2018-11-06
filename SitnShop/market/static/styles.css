@@ -11,7 +11,7 @@ div.content
 	background-color: rgb(255,255,255);
 	padding : 10px 30px 10px 30px;
 	margin: auto;
-	margin-top: 100px;
+	margin-top: 50px;
   border-radius: 10px;
   border-color: rgb(220,220,220);
   border-style: solid;
@@ -55,7 +55,7 @@ img.icon
   height: 15px;
   border-radius: 50%;
   border : solid;
-  border-width: 2px;
+  border-width: 0px;
   display: inline;
   float : left;
 }
@@ -98,8 +98,26 @@ h1:hover
   cursor: pointer;
   text-decoration: underline;
 }
+h1.profile /*shop name font*/
+{
+  font-family: 'Open Sans', sans-serif;
+  color:rgb(72,72,72);
+  text-align: left;
+  margin-top: 25px;
+  display: inline-block;
+
+  margin-left: 200px;
+  margin-bottom: 0px;
+  font-weight: 800;
+  font-size: 30px;
+}
+h1.profile:hover
+{
+  text-decoration: none;
+}
 h4 /* address of the shop */
 {
+  display: inline-block;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   font-size: 13px;
@@ -109,7 +127,11 @@ h4 /* address of the shop */
   margin-top: 0px;
   font-weight: 400;
   margin-left: 10px;
-  display: inline-block;
+}
+h4.followers
+{
+  margin-top: 0px; 
+  margin-left: 200px;
 } 
 h5 /* follow */
 {
@@ -263,6 +285,14 @@ a.follow:hover
 {
   color: rgb(152,152,152);
 }
+a.followProfile
+{
+  float: right;
+  color: rgb(72,72,72);
+  font-size: 14px;
+  margin-top: 40px;
+  margin-right: 40px;
+}
 
 
 /* login */
@@ -345,7 +375,7 @@ input[type="text"], input[type="password"], textarea, select
 }
 .Neon-input-dragDrop {
   display: block;
-  width: 343px;
+  max-width: 343px;
   margin: 0 auto 25px auto;
   padding: 25px;
   color: #8d9499;
@@ -413,8 +443,246 @@ input[type="text"], input[type="password"], textarea, select
     {
       width: 100px;
     }
-    .Neon-input-dragDrop 
+
+    .image2 
     {
-      width: 300px; 
+      width: 100px;
+      height: 100px;
+      left:50%;
+      z-index: 1;
+    }
+    .dpContainer {
+      width: 100px;
+      height: 100px;
+      top: 20px;
+      left: 20px;
+    }
+
+
+    h1.profile
+    {
+      margin-left: 140px;
+      font-size: 20px;
+    }
+    h4.followers
+    {
+      margin-left: 140px;
+    } 
+
+    a.followProfile
+    {
+      margin-top: 30px;
+      margin-right: 20px;
+    }
+
+    .switch 
+    {
+      margin-top: 30px;
     }
 }
+
+@media screen and (max-width: 380px) 
+{
+    h1.profile
+    {
+      margin-left: 110px;
+      font-size: 15px;
+    }
+    h4.followers
+    {
+      margin-left: 110px;
+    } 
+    .dpContainer {
+      width: 70px;
+      height: 70px;
+      top: 10px;
+      left: 10px;
+    }
+    .navbar input[type=text] 
+    {
+      width: 50px;
+    }
+
+}
+
+/* profile overlay */
+
+div.cover {
+  top: 0;
+  left: 0;
+  position: relative;
+
+  max-width: 47.5em; /*760px*/
+  background-color: rgb(255,255,255);
+  padding : 0px 0px 10px 0px;
+  margin: auto;
+  margin-top: 50px;
+  border-radius: 10px;
+  border-color: rgb(220,220,220);
+  border-style: solid;
+  border-width: 1px;
+}
+.image1{
+  width: 100%;
+  position: relative;
+  height: auto; 
+}
+.image2 {
+  position: absolute;
+  max-width: 9.375em; /* 150, 150 */
+  max-height: 9.375em;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  border : solid;
+  border-color: white;
+}
+
+.CoverContainer {
+  position: relative;
+  width: 100%;
+}
+
+.CoverImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.CoverOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+}
+
+.CoverContainer:hover .CoverOverlay {
+  opacity: 1;
+}
+
+.CoverEditIcon {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 90%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.dpContainer {
+  position: absolute;
+  max-width: 150px;
+  max-height: 150px;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+  border : solid;
+  border-color: white;
+}
+
+.dpImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.dpOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+}
+
+.dpContainer:hover .dpOverlay {
+  opacity: 1;
+}
+
+.dpEditIcon {
+  color: white;
+  font-size: 15px;
+  position: absolute;
+  top: 90%;
+  left: 90%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Toggle button */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 20px;
+  float: right;
+  margin-right: 10px;
+  margin-top: 40px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #00C000; /* #00C000 #2196F3 */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* suggetions */

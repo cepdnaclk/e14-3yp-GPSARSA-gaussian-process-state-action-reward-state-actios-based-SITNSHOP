@@ -15,8 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework.urlpatterns import format_suffix_patterns
+from market.views import shop, market, customer, api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', include('client.urls')),
+    path('', include('market.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    # api requests
+    path('getshopList/', api.ShopList.as_view(), name='getshopList/'),
+    path('getuserList/', api.UserList.as_view(), name='getuserList/'),
+
 ]
+
+if settings.DEBUG:
+	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 

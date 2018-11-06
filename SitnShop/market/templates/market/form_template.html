@@ -1,0 +1,10 @@
+{% for field in form %}
+<hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+    <div>
+            <span class="text-danger small">{{ field.errors }}</span>
+ </div>
+        <!--<input type="{{ field.widget.type }}" placeholder="{{ field.label_tag }}" name="username"><br>-->
+        <label >{{ field.label_tag }}</label>
+        <div >{{ field }}</div>
+
+{% endfor %}

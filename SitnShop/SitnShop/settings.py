@@ -25,7 +25,7 @@ SECRET_KEY = '9!c^+lx%1t(cmh-djyrknt^%lam^ptz-*hf-yoj&*cfl5^vvmw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = '*'
 
 
 # Application definition
@@ -38,10 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'el_pagination',
-    'client.apps.ClientConfig',
+    'market.apps.MarketConfig',
+    'rest_framework',
 
 
 ]
+
+# Custom Django auth settings
+
+AUTH_USER_MODEL = 'auth.User'
+# AUTH_USER_MODEL = 'shop.User'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,3 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'

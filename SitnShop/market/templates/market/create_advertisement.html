@@ -1,0 +1,29 @@
+{% extends 'market/base.html' %}
+{% block body %}
+
+<div class="login">
+        <h2>Create Advertisement</h2>
+        <form  method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+          {% include 'market/form_template.html' %}
+			{% if error_message != None %}
+			<p class=" label label-danger">
+				{{error_message}}
+			</p>
+			{% endif %}
+          <input type="submit" value="Create Advertisement">
+        </form>
+		<form  method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+          {% include 'market/form_template.html' %}
+			{% if error_message != None %}
+			<p class=" label label-danger">
+				{{error_message}}
+			</p>
+			{% endif %}
+          <input type="submit" value="Create Advertisement">
+        </form>
+
+  		</div>
+	
+{% endblock %}

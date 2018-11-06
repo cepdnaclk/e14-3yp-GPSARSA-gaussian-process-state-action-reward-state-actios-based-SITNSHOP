@@ -1,0 +1,53 @@
+{% extends 'market/base.html' %}
+{% block body %}
+
+{% load staticfiles %}
+
+      <div class="content">
+        <h2 style="font-size: 20px;">Whats new?</h2>
+        <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+        <!-- gnvbnvbn -->        
+        <div class="Neon Neon-theme-dragdropbox" style="margin-top: 30px;">
+          <input style="z-index: 999; opacity: 0; width: 320px; height: 200px; position: absolute; right: 0px; left: 0px; margin-right: auto; margin-left: auto;" name="files[]" id="filer_input2" multiple="multiple" type="file">
+          <div class="Neon-input-dragDrop">
+            <div class="Neon-input-inner">
+              <div class="Neon-input-icon">
+                <i class="fa fa-file-image-o"></i>
+              </div>
+            <div class="Neon-input-text">
+              <h4>Drag&amp;Drop files here</h4>
+              <span style="display:inline-block; margin: 15px 0">or</span>
+            </div><a class="Neon-input-choose-btn blue">Browse Files</a></div>
+          </div>
+        </div>
+      </div>
+
+          <div class="content" style="margin-top: 50px;">
+            <img class="avatar" src="{{ shop.ProfilePic.url }}" alt="dp">
+            <h1>&nbsp&nbsp {{ shop.ShopName }} </h1>
+                <small> {{ time }}</small>
+            <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+              <img class="post" src="{{ shop.Advertisement.url }}" alt="dp">
+          </div>
+
+
+      <!--{% for ad, time in ad_list %}-->
+      <!--<div class="content" style="margin-top: 50px;">-->
+
+          <!--{% with "Images/i"|add:pk|add:"/"|add:"Profile"|add:".jpg" as image_static_1 %}-->
+            <!--<img class="avatar" src="{% static image_static_1 %}" alt="dp">-->
+          <!--{% endwith %}-->
+        <!--<h1>&nbsp&nbsp {{ user }} </h1>-->
+
+          <!--<small> {{ time }}</small>-->
+        <!--<hr style="background-color:rgb(232,232,232);border: 0;height: 3px">-->
+          <!--{% with "Images/i"|add:pk|add:"/"|add:ad|add:".jpg" as image_static_2 %}-->
+
+        <!--<img class="post" src="{% static image_static_2 %}" alt="dp">-->
+          <!--{% endwith %}-->
+
+      <!--</div>-->
+
+      <!--{% endfor %}-->
+
+{% endblock %}

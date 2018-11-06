@@ -1,0 +1,24 @@
+{% extends 'market/base.html' %}
+
+{% block body %}
+
+
+      <div class="login">
+        <h2>Login</h2> 
+        <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+        <form  method="post">
+			{% csrf_token %}
+          <input type="text" placeholder="User name" name="username"><br>
+          <input type="password" placeholder="Password" name="password"><br>
+
+			{% if error != None %}
+			<p class=" label label-danger">
+				Your username and password didn't match.
+				Please try again.
+			</p>
+			{% endif %}
+          <input type="submit" value="Login">
+        </form>
+         
+  		</div>
+{% endblock %}
