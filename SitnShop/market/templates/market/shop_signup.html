@@ -20,3 +20,11 @@
   		</div>
 	
 {% endblock %}
+
+{% block javascript %}
+  <script>
+    $("#id_shop_category").change(function () {
+      console.log( $(this).val() );
+    });
+  </script>
+{% endblock %}

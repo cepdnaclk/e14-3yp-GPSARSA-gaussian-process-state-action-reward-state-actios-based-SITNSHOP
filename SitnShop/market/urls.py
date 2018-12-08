@@ -31,10 +31,8 @@ urlpatterns = [
         # path('login/loginShop/', shop.ShopLoginView.as_view(), name="loginShop"),
 
 
-        # todo: create a federated login for shopvisitor
-        path('login/signupCustomer/', customer.CustomerSignUpView.as_view(), name="signupCustomer"),
-        path('login/loginCustomer/', customer.loginCustomer, name="loginCustomer"),
-
+        # adding social login redirect
+        path('validate', customer.validate_customer, name="validate_customer"),
 
         path('edit_shop/', shop.edit_shop, name='edit_shop'),
         path('edit_customer/', customer.edit_customer, name='edit_customer'),
@@ -47,6 +45,14 @@ urlpatterns = [
         path('delete_advertisement/<int:pk>', shop.AdvertisementDelete.as_view(), name='delete_advertisement'),
         path('update_advertisement/<int:pk>', shop.AdvertisementUpdate.as_view(), name='update_advertisement'),
         path('create_advertisement/', shop.AdvertisementCreate.as_view(), name='create_advertisement'),
+        path('create_quick_advertisement/', shop.QuickAdvertisementCreate.as_view(), name='create_quick_advertisement'),
+        path('delete_quick_advertisement/<int:pk>', shop.QuickAdvertisementDelete.as_view(), name='delete_quick_advertisement'),
+
+        path('get_quick_adds/', shop.getQuickAdds, name='get_quick_adds'),
+
+        # get hash tag list for the shop
+        path('get_hash_tags/', shop.get_hash_tags, name='get_hash_tags'),
+        path('set_hash_tags/', shop.set_hash_tags, name='set_hash_tags'),
 
         path('check_follow_status/', market.checkFollowStatus, name='check_follow_status'),
         path('follow_shop/', market.shop_follow, name='follow_shop'),

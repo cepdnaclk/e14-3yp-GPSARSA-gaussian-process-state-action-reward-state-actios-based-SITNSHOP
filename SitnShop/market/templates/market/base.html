@@ -24,7 +24,10 @@
 		<link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
 
+
 </head>
+{% block head %}
+{% endblock %}
 <body>
 
     <div class="navbar">
@@ -51,9 +54,10 @@
   			</div>
   		</div>
 
-{% block javascript %}
-{% endblock %}
+
 {% block body %}
+{% endblock %}
+{% block javascript %}
 {% endblock %}
 </body>
 </html>

@@ -28,6 +28,10 @@ urlpatterns = [
     path('getshopList/', api.ShopList.as_view(), name='getshopList/'),
     path('getuserList/', api.UserList.as_view(), name='getuserList/'),
 
+    # social login
+    path('auth/', include('social_django.urls', namespace='social')),
+
+
 ]
 
 if settings.DEBUG:

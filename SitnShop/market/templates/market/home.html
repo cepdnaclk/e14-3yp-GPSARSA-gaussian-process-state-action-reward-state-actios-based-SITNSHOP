@@ -1,15 +1,23 @@
 {% extends 'market/base.html' %}
+{% block head %}
+
+		<!-- core stylesheet -->
+		<link rel="stylesheet" href="/static/zuck.css">
+		<!-- skins -->
+		<link rel="stylesheet" href="/static/snapssenger.css">
+
+
+{% endblock %}
+
 {% block body %}
-
-
-		<!--{% load el_pagination_tags %}-->
-		<!--{% with entry_list as e %}-->
-			<!--{% lazy_paginate e %}-->
-
-
+		{% csrf_token %}
+		<div class="content" style="margin-top: 100px;">
+        	<div id="stories"></div>
+        </div>
+<div class="infinite-container">
   		{% for add in adds %}
+	<div class="infinite-item">
   		<div class="content" style="margin-top: 80px;">
-
   			<img class="avatar" src="{{ add.shop.ProfilePic.url }}" alt="dp">
 			<a href="{% url 'market:public_profile' add.shop.id %}"><h1>{{ add.shop.ShopName }}</h1></a><br>
 			<p class=" label label-danger">
@@ -19,12 +27,38 @@
   			<hr style="background-color: rgb(220,220,220);border: 0;" size="3">
   			<img class="post" src="{{ add.Advertisement_data.url }}" alt="dp">
   		</div>
-
+	</div>
 		{% endfor %}
-		<!--{% show_more %}-->
+</div>
 
-		<!--{%endwith %}-->
+<div class="loading" style="display: none;">
+    Loading...
+  </div>
+
+{% if page_obj.has_next %}
+    <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+  {% endif %}
 
 {% endblock %}
-	<!--</body>-->
-<!--</html>-->
+
+{% block javascript %}
+	<script src="/static/js/jquery-3.1.1.min.js"></script>
+	<script src="/static/js/jquery.waypoints.min.js"></script>
+	<script src="/static/js/infinite.min.js"></script>
+  <script>
+
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+  </script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+ 	<script src="/static/js/zuck.js"></script>
+    <script src="/static/js/home.js"></script>
+
+{% endblock %}

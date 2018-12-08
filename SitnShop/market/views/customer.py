@@ -16,58 +16,73 @@ from django.contrib.auth.models import User
 from ..models import Customer
 from ..forms import UserForm
 
+#
+# class CustomerSignUpView(CreateView):
+#     model = User
+#     form_class = UserForm
+#     template_name = 'market/customer_signup.html'
+#
+#     def get(self, request):
+#         form = self.form_class(None)
+#         return render(request, self.template_name, {'form': form})
+#
+#     def post(self, request):
+#         form = self.form_class(request.POST)
+#
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+#             user.set_password(password)
+#             user.save()
+#             # print(user.profile.is_shop)
+#             user.profile.is_customer = True
+#             user.save()
+#             customer = Customer.objects.create(user=user, timestamp=datetime.datetime.now())
+#             user = authenticate(username=username, password=password)
+#             # print(user.profile.is_shop)
+#             if user is not None:
+#                 if user.is_active:
+#                     login(request, user)
+#                     return redirect('market:profile')
+#             print("um here")
+#
+#         return render(request, self.template_name, {'form': form, 'error_message': 'something went wrong'})
+#
+# def loginCustomer(request):
+#     if request.method == "POST":
+#         username = request.POST['username']
+#         password = request.POST['password']
+#         user = authenticate(username=username, password=password)
+#         if user is not None and Customer.objects.filter(user=user).exists() is True:
+#             if user.is_active:
+#                 login(request, user)
+#                 customer = Customer.objects.get(user=request.user)
+#                 # print(customer.user)
+#                 return redirect('market:homepage')
+#                 # return render(request, 'market:homepage', {'customer': customer})
+#             else:
+#                 return render(request, 'market/customer_login.html', {'error_message': 'Your account has been disabled'})
+#         else:
+#             return render(request, 'market/customer_login.html', {'error_message': 'Invalid login'})
+#     return render(request, 'market/customer_login.html')
 
-class CustomerSignUpView(CreateView):
-    model = User
-    form_class = UserForm
-    template_name = 'market/customer_signup.html'
 
-    def get(self, request):
-        form = self.form_class(None)
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request):
-        form = self.form_class(request.POST)
-
-        if form.is_valid():
-            user = form.save(commit=False)
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user.set_password(password)
-            user.save()
-            print(user.profile.is_shop)
-            user.profile.is_customer = True
-            user.save()
-            customer = Customer.objects.create(user=user, timestamp=datetime.datetime.now())
-            user = authenticate(username=username, password=password)
-            # print(user.profile.is_shop)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect('market:profile')
-            print("um here")
-
-        return render(request, self.template_name, {'form': form, 'error_message': 'something went wrong'})
-
-def loginCustomer(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None and Customer.objects.filter(user=user).exists() is True:
-            if user.is_active:
-                login(request, user)
-                customer = Customer.objects.get(user=request.user)
-                # print(customer.user)
-                return redirect('market:homepage')
-                # return render(request, 'market:homepage', {'customer': customer})
-            else:
-                return render(request, 'market/customer_login.html', {'error_message': 'Your account has been disabled'})
+def validate_customer(request):
+    user = request.user
+    print(user.username)
+    if user is not None and Customer.objects.filter(user=user).exists() is True:
+        if user.is_active:
+            return redirect('market:homepage')
         else:
-            return render(request, 'market/customer_login.html', {'error_message': 'Invalid login'})
-    return render(request, 'market/customer_login.html')
-
-
+            return render(request, 'market/logInAs.html', {'error_message': 'Your account has been disabled'})
+    elif user is not None and Customer.objects.filter(user=user).exists() is False:
+        current_user = User.objects.get(username=user)
+        current_user.profile.is_customer = True
+        current_user.save()
+        customer = Customer.objects.create(user=user, timestamp=datetime.datetime.now())
+        return redirect('market:homepage')
+    return render(request, 'market/logInAs.html', {'error_message': 'Something went wrong'})
 
 
 def edit_customer(request):

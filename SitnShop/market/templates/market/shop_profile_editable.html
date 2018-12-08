@@ -1,8 +1,60 @@
 {% extends 'market/base.html' %}
+
+
 {% block body %}
-    <div >
-        <h3>{{ user.username }}'s Advertisements</h3>
-    </div>
+
+
+
+    {% if quick_adds %}
+        {% for quick_add in quick_adds %}
+            <div class="content" style="margin-top: 80px;">
+
+                <img class="avatar" src="{{ quick_add.shop.ProfilePic.url }}" alt="dp">
+                <a href="#"><h1>{{ quick_add.shop.ShopName }}</h1></a><br>
+                <p class=" label label-danger">
+                    {{quick_add.QuickAdd_text}}
+                </p>
+                <h4><i class="fas fa-map-marker-alt"></i>&nbsp{{ quick_add.shop.Address }}. </h4>
+                <a href="#" class="follow" style="float: right;color: rgb(72,72,72);font-size: 14px;"><i class="fas fa-heart" style="font-size: 12px;"></i><h5>&nbspFollow</h5></a>
+                <hr style="background-color: rgb(220,220,220);border: 0;" size="3">
+                <img class="post" src="{{ quick_add.QuickAdd_data.url }}" alt="dp">
+                <!--Delete Advertisement-->
+                    <form action="{% url 'market:delete_quick_advertisement' quick_add.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="advertisement_id" value="{{ quick_add.id }}" />
+                        <button type="submit" class="fas fa-trash">
+                        </button>
+                    </form>
+            </div>
+        {% endfor %}
+    {% endif %}
+     {% if withinQuickAddLimit %}
+         <div class="content" style="margin-top: 80px;">
+                <h2>Add a Quick Advertisement</h2>
+                <form  action="{% url 'market:create_quick_advertisement' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                        {% for field in quickcreateform %}
+                            <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
+                                <div>
+                                    <span class="text-danger small">{{ field.errors }}</span>
+                                </div>
+                                    <!--<input type="{{ field.widget.type }}" placeholder="{{ field.label_tag }}" name="username"><br>-->
+                                <label >{{ field.label_tag }}</label>
+                                <div >{{ field }}</div>
+
+                        {% endfor %}
+                    {% if error_message != None %}
+                    <p class=" label label-danger">
+                        {{error_message}}
+                    </p>
+                    {% endif %}
+                  <input type="submit" value="Create Quick Add">
+                    <hr style="background-color: rgb(220,220,220);border: ;" size="3">
+                </form>
+
+         </div>
+    {% endif %}
+
     {% if adds %}
         {% for add in adds %}
             <div class="content" style="margin-top: 80px;">
@@ -26,7 +78,7 @@
                 <!--Edit Advertisement-->
                     <form action="{% url 'market:update_advertisement' add.id %}" method="post" style="display: inline;">
                         {% csrf_token %}
-                        {% for field in updateForm %}
+                        {% for field in updateform %}
                             <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
                                 <div>
                                     <span class="text-danger small">{{ field.errors }}</span>
@@ -49,7 +101,7 @@
                 <h2>Create Advertisement</h2>
                 <form  action="{% url 'market:create_advertisement' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                        {% for field in form %}
+                        {% for field in createform %}
                             <hr style="background-color:rgb(232,232,232);border: 0;height: 3px">
                                 <div>
                                     <span class="text-danger small">{{ field.errors }}</span>
@@ -70,4 +122,13 @@
 
          </div>
     {% endif %}
+     <div class="content" style="margin-top: 80px;" shop_id="{{ shop.id }}" id="hash_tags_list">
+        <input id = "save_tags" type="submit" value="save tags"/>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="/static/js/shop_profile_editable.js"></script>
 {% endblock %}

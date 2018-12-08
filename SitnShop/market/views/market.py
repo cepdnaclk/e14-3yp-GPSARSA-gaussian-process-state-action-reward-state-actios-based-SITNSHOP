@@ -4,9 +4,6 @@ from django.contrib.auth import logout
 from ..models import Shop, Customer, User,Follow
 from django.http import JsonResponse
 
-from el_pagination.decorators import page_template
-from el_pagination.views import AjaxListView
-
 
 def checkFollowStatus(request):
 

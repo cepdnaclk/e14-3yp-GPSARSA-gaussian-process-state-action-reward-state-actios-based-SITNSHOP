@@ -40,8 +40,8 @@ INSTALLED_APPS = [
     'el_pagination',
     'market.apps.MarketConfig',
     'rest_framework',
-
-
+    'django_cron',
+    'social_django'
 ]
 
 # Custom Django auth settings
@@ -60,6 +60,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CRON_CLASSES = [
+    'market.cron.MyCronJob',
+]
+
+
 ROOT_URLCONF = 'SitnShop.urls'
 
 TEMPLATES = [
@@ -74,6 +79,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request', ## For EL-pagination
+                'social_django.context_processors.backends',  # <- Here
+                'social_django.context_processors.login_redirect', # <- Here
             ],
         },
     },
@@ -91,6 +98,16 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.open_id.OpenIdAuth',  # for Google authentication
+    'social_core.backends.google.GoogleOpenId',  # for Google authentication
+    'social_core.backends.google.GoogleOAuth2',  # for Google authentication
+    # 'social_core.backends.github.GithubOAuth2',  # for Github authentication
+    # 'social_core.backends.facebook.FacebookOAuth2',  # for Facebook authentication
+
+    'django.contrib.auth.backends.ModelBackend', #for django default
+)
 
 
 # Password validation
@@ -124,6 +141,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = 'market:validate_customer'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='678287007160-odjbvf21ohm9o8685ivaiu5d5vd54qqp.apps.googleusercontent.com'  #Paste CLient Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'BSg1QJ6aDKaz-4477MhNMZYf' #Paste Secret Key
 
 
 # Static files (CSS, JavaScript, Images)
